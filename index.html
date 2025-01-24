@@ -309,7 +309,7 @@ function submitItem() {
         name: currentItem.name,
         quantity: quantity,
         unit: document.getElementById('unit').value,
-        notes: document.getElementById('itemNotes').value
+        notes: document.getElementById('itemNotes') ? document.getElementById('itemNotes').value : ''
     };
 
     orderData.items.push(item);
@@ -317,7 +317,9 @@ function submitItem() {
     // איפוס השדות
     document.getElementById('quantity').value = '1';
     document.getElementById('unit').value = 'ק״ג';
-    document.getElementById('itemNotes').value = '';
+    if (document.getElementById('itemNotes')) {
+        document.getElementById('itemNotes').value = '';
+    }
     
     document.getElementById('itemDetails').classList.add('hidden');
     document.getElementById('barcodeScanner').classList.remove('hidden');
