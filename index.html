@@ -429,7 +429,7 @@ function submitNewItem() {
         name: productName,
         quantity: quantity,
         unit: document.getElementById('newUnit').value,
-        notes: document.getElementById('newItemNotes').value
+        notes: document.getElementById('newItemNotes') ? document.getElementById('newItemNotes').value : ''
     };
 
     orderData.items.push(newItem);
@@ -438,13 +438,16 @@ function submitNewItem() {
     document.getElementById('newProductName').value = '';
     document.getElementById('newQuantity').value = '1';
     document.getElementById('newUnit').value = 'ק״ג';
-    document.getElementById('newItemNotes').value = '';
+    if (document.getElementById('newItemNotes')) {
+        document.getElementById('newItemNotes').value = '';
+    }
     
     document.getElementById('newItemForm').classList.add('hidden');
     document.getElementById('barcodeScanner').classList.remove('hidden');
     
     initializeScanner();
 }
+        
 function renderItems() {
     const itemList = document.getElementById('itemList');
     itemList.innerHTML = '';
