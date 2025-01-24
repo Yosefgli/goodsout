@@ -108,7 +108,7 @@
 </head>
 <body>
     <div id="initialForm" class="container">
-        <h2>יצירת טופס הוצאת סחורה</h2>
+        <h2>טופס הוצאת סחורה</h2>
         <div class="form-group">
             <label for="date">תאריך *</label>
             <input type="date" id="date" required>
@@ -172,11 +172,9 @@
                 <option value="קופסה">קופסה</option>
             </select>
         </div>
-        <div class="form-group">
-            <label>הערות:</label>
-            <textarea id="itemNotes"></textarea>
-        </div>
+       
         <button onclick="submitItem()">אשר</button>
+        <button onclick="cancelItem()" class="secondary-btn">ביטול</button>
     </div>
 
     <div id="newItemForm" class="container hidden">
@@ -200,10 +198,7 @@
                 <option value="קופסה">קופסה</option>
             </select>
         </div>
-        <div class="form-group">
-            <label>הערות:</label>
-            <textarea id="newItemNotes"></textarea>
-        </div>
+        
         <button onclick="submitNewItem()">אשר</button>
         <button onclick="cancelNewItem()" class="secondary-btn">ביטול</button>
     </div>
@@ -212,6 +207,7 @@
     <div id="summary" class="container hidden">
         <h2>סיכום הוצאת סחורה</h2>
         <div id="orderDetails"></div>
+        <button onclick="editorderDetails()">ערוך פרטים</button>
         <div id="itemList" class="item-list"></div>
         <button onclick="finalizeOrder()">שלח הוצאת סחורה</button>
     </div>
