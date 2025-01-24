@@ -174,7 +174,7 @@
         </div>
        
         <button onclick="submitItem()">אשר</button>
-        <button onclick="cancelItem()" class="secondary-btn">ביטול</button>
+        <button onclick="cancelItemSelection()" class="secondary-btn">ביטול</button>
     </div>
 
     <div id="newItemForm" class="container hidden">
@@ -207,7 +207,6 @@
     <div id="summary" class="container hidden">
         <h2>סיכום הוצאת סחורה</h2>
         <div id="orderDetails"></div>
-        <button onclick="editorderDetails()">ערוך פרטים</button>
         <div id="itemList" class="item-list"></div>
         <button onclick="finalizeOrder()">שלח הוצאת סחורה</button>
     </div>
@@ -318,6 +317,13 @@ function submitItem() {
     initializeScanner();
 }
 
+// הוספת פונקציית ביטול חדשה
+function cancelItemSelection() {
+    document.getElementById('itemDetails').classList.add('hidden');
+    document.getElementById('barcodeScanner').classList.remove('hidden');
+    initializeScanner();
+}
+
 function showSummary() {
     if (html5QrcodeScanner) {
         html5QrcodeScanner.clear();
@@ -333,12 +339,25 @@ function showSummary() {
         <p><strong>שם מקבל הסחורה:</strong> ${orderData.receiverName}</p>
         <p><strong>יעד הוצאת הסחורה:</strong> ${orderData.destination}</p>
         ${orderData.notes ? `<p><strong>הערות:</strong> ${orderData.notes}</p>` : ''}
-        <button onclick="addMoreItems()" class="add-btn">הוסף עוד פריטים</button>
+        <button onclick="editOrderDetails()" class="secondary-btn">ערוך פרטים</button>
+        <button onclick="addMoreItems()" class="add-btn">הוסף פריטים</button>
     `;
 
     renderItems();
 }
 
+function editOrderDetails() {
+    // שחזור הנתונים למסך הראשוני
+    document.getElementById('date').value = orderData.date;
+    document.getElementById('supplierName').value = orderData.supplierName;
+    document.getElementById('receiverName').value = orderData.receiverName;
+    document.getElementById('destination').value = orderData.destination;
+    document.getElementById('notes').value = orderData.notes;
+
+    // מעבר למסך הראשוני
+    document.getElementById('summary').classList.add('hidden');
+    document.getElementById('initialForm').classList.remove('hidden');
+}
 function editItem(index) {
     currentItem = orderData.items[index];
     
