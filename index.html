@@ -368,21 +368,27 @@ function editOrderDetails() {
     document.getElementById('summary').classList.add('hidden');
     document.getElementById('initialForm').classList.remove('hidden');
 }
+        
 function editItem(index) {
     currentItem = orderData.items[index];
     
-    document.getElementById('productId').value = currentItem.id;
+    document.getElementById('productId').value = currentItem.id || '';
     document.getElementById('productName').value = currentItem.name;
     document.getElementById('quantity').value = currentItem.quantity;
     document.getElementById('unit').value = currentItem.unit;
-    document.getElementById('itemNotes').value = currentItem.notes || '';
+    
+    // הוספת בדיקת קיום לשדה ההערות
+    const notesElement = document.getElementById('itemNotes');
+    if (notesElement) {
+        notesElement.value = currentItem.notes || '';
+    }
     
     orderData.items.splice(index, 1);
     
     document.getElementById('summary').classList.add('hidden');
     document.getElementById('itemDetails').classList.remove('hidden');
 }
-
+        
 function deleteItem(index) {
     if (confirm('האם אתה בטוח שברצונך למחוק פריט זה?')) {
         orderData.items.splice(index, 1);
