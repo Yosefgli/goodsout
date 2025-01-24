@@ -297,18 +297,26 @@ function onScanError(error) {
 }
 
 function submitItem() {
+    const quantity = document.getElementById('quantity').value;
+    
+    if (!quantity || quantity <= 0) {
+        alert('אנא הזן כמות תקינה');
+        return;
+    }
+
     const item = {
         id: currentItem.id,
         name: currentItem.name,
-        quantity: document.getElementById('quantity').value,
+        quantity: quantity,
         unit: document.getElementById('unit').value,
         notes: document.getElementById('itemNotes').value
     };
 
     orderData.items.push(item);
     
-    document.getElementById('quantity').value = '';
-    document.getElementById('unit').value = '';
+    // איפוס השדות
+    document.getElementById('quantity').value = '1';
+    document.getElementById('unit').value = 'ק״ג';
     document.getElementById('itemNotes').value = '';
     
     document.getElementById('itemDetails').classList.add('hidden');
@@ -402,25 +410,32 @@ function cancelNewItem() {
 
 function submitNewItem() {
     const productName = document.getElementById('newProductName').value;
+    const quantity = document.getElementById('newQuantity').value;
     
     if (!productName) {
         alert('אנא הכנס שם פריט');
         return;
     }
 
+    if (!quantity || quantity <= 0) {
+        alert('אנא הזן כמות תקינה');
+        return;
+    }
+
     const newItem = {
         isNewItem: true,
         name: productName,
-        quantity: document.getElementById('newQuantity').value,
+        quantity: quantity,
         unit: document.getElementById('newUnit').value,
         notes: document.getElementById('newItemNotes').value
     };
 
     orderData.items.push(newItem);
     
+    // איפוס השדות
     document.getElementById('newProductName').value = '';
-    document.getElementById('newQuantity').value = '';
-    document.getElementById('newUnit').value = '';
+    document.getElementById('newQuantity').value = '1';
+    document.getElementById('newUnit').value = 'ק״ג';
     document.getElementById('newItemNotes').value = '';
     
     document.getElementById('newItemForm').classList.add('hidden');
@@ -428,7 +443,6 @@ function submitNewItem() {
     
     initializeScanner();
 }
-
 function renderItems() {
     const itemList = document.getElementById('itemList');
     itemList.innerHTML = '';
